@@ -29,13 +29,13 @@
             cursor: pointer;
             border: none;
             border-radius: 5px;
-            background: #ffcc00;
+            background: linear-gradient(45deg, #ffcc00, #ff6600);
             color: black;
             transition: 0.3s;
             font-family: 'Press Start 2P', cursive;
         }
         .choices button:hover, .play-button:hover {
-            background: #ff9900;
+            background: linear-gradient(45deg, #ff9900, #cc4400);
         }
         #result, #computer-choice, #scoreboard {
             font-size: 24px;
@@ -100,9 +100,4 @@
                     playerScore = 0;
                     computerScore = 0;
                     document.getElementById('scoreboard').textContent = `Player: 0 | Computer: 0`;
-                }, 100);
-            }
-        }
-    </script>
-</body>
-</html>
+                },
