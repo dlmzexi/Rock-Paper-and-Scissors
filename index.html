@@ -20,8 +20,9 @@
             display: inline-block;
             text-align: center;
             width: 50%;
+            display: none;
         }
-        .choices button {
+        .choices button, .play-button {
             font-size: 20px;
             padding: 10px;
             margin: 10px;
@@ -33,7 +34,7 @@
             transition: 0.3s;
             font-family: 'Press Start 2P', cursive;
         }
-        .choices button:hover {
+        .choices button:hover, .play-button:hover {
             background: #ff9900;
         }
         #result, #computer-choice, #scoreboard {
@@ -48,7 +49,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="game-container">
+    <button class="play-button" onclick="startGame()">Click to Play</button>
+    <div class="game-container" id="game-container">
         <h1>Rock Paper Scissors</h1>
         <div class="choices">
             <button onclick="playGame('rock')">✊ Rock</button>
@@ -63,6 +65,11 @@
     <script>
         let playerScore = 0;
         let computerScore = 0;
+        
+        function startGame() {
+            document.querySelector('.play-button').style.display = 'none';
+            document.getElementById('game-container').style.display = 'inline-block';
+        }
         
         function playGame(userChoice) {
             const choices = ['rock', 'paper', 'scissors'];
