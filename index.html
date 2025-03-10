@@ -22,6 +22,10 @@
             margin-top: 20px;
             font-weight: bold;
         }
+        #computer-choice {
+            font-size: 20px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -31,6 +35,7 @@
         <button onclick="playGame('paper')">✋ Paper</button>
         <button onclick="playGame('scissors')">✌ Scissors</button>
     </div>
+    <p id="computer-choice"></p>
     <p id="result"></p>
     
     <script>
@@ -51,7 +56,8 @@
                 result = "You lose! 😢";
             }
             
-            document.getElementById('result').textContent = `Computer chose ${computerChoice}. ${result}`;
+            document.getElementById('computer-choice').textContent = `Computer chose: ${computerChoice}`;
+            document.getElementById('result').textContent = result;
         }
     </script>
 </body>
