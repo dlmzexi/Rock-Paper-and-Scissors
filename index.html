@@ -17,12 +17,12 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-            display: inline-block;
+            display: none;
             text-align: center;
             width: 50%;
-            display: none;
+            margin: 20px auto;
         }
-        .choices button, .play-button {
+        .choices button, .play-button, .mode-button {
             font-size: 20px;
             padding: 10px;
             margin: 10px;
@@ -34,7 +34,7 @@
             transition: 0.3s;
             font-family: 'Press Start 2P', cursive;
         }
-        .choices button:hover, .play-button:hover {
+        .choices button:hover, .play-button:hover, .mode-button:hover {
             background: linear-gradient(45deg, #ff9900, #cc4400);
         }
         #result, #computer-choice, #scoreboard {
@@ -59,9 +59,11 @@
 <body>
     <div class="intro">
         <p>Welcome to Rock Paper Scissors! 🕹️</p>
-        <p>Click 'Play' to start and try to beat the computer in a game up to 5 points!</p>
+        <p>Choose a difficulty level and try to beat the computer in a game up to 5 points!</p>
     </div>
-    <button class="play-button" onclick="startGame()">Click to Play</button>
+    <button class="mode-button" onclick="setMode('beginner')">Beginner</button>
+    <button class="mode-button" onclick="setMode('intermediate')">Intermediate</button>
+    <button class="mode-button" onclick="setMode('expert')">Expert</button>
     <div class="game-container" id="game-container">
         <h1>Rock Paper Scissors</h1>
         <div class="choices">
@@ -77,15 +79,26 @@
     <script>
         let playerScore = 0;
         let computerScore = 0;
+        let difficulty = 'beginner';
         
-        function startGame() {
-            document.querySelector('.play-button').style.display = 'none';
-            document.getElementById('game-container').style.display = 'inline-block';
+        function setMode(mode) {
+            difficulty = mode;
+            document.querySelectorAll('.mode-button').forEach(button => button.style.display = 'none');
+            document.getElementById('game-container').style.display = 'block';
         }
         
         function playGame(userChoice) {
             const choices = ['rock', 'paper', 'scissors'];
-            const computerChoice = choices[Math.floor(Math.random() * 3)];
+            let computerChoice;
+            
+            if (difficulty === 'beginner') {
+                computerChoice = choices[Math.floor(Math.random() * 3)];
+            } else if (difficulty === 'intermediate') {
+                computerChoice = Math.random() < 0.6 ? counterMove(userChoice) : choices[Math.floor(Math.random() * 3)];
+            } else {
+                computerChoice = Math.random() < 0.8 ? counterMove(userChoice) : choices[Math.floor(Math.random() * 3)];
+            }
+            
             let result = '';
             
             if (userChoice === computerChoice) {
@@ -114,6 +127,12 @@
                     document.getElementById('scoreboard').textContent = `Player: 0 | Computer: 0`;
                 }, 100);
             }
+        }
+        
+        function counterMove(userChoice) {
+            if (userChoice === 'rock') return 'paper';
+            if (userChoice === 'paper') return 'scissors';
+            return 'rock';
         }
     </script>
 </body>
