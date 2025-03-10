@@ -22,7 +22,7 @@
             width: 50%;
             margin: 20px auto;
         }
-        .choices button, .play-button, .mode-button {
+        .choices button, .play-button, .mode-button, .menu-button, .reset-button {
             font-size: 20px;
             padding: 10px;
             margin: 10px;
@@ -34,7 +34,7 @@
             transition: 0.3s;
             font-family: 'Press Start 2P', cursive;
         }
-        .choices button:hover, .play-button:hover, .mode-button:hover {
+        .choices button:hover, .play-button:hover, .mode-button:hover, .menu-button:hover, .reset-button:hover {
             background: linear-gradient(45deg, #ff9900, #cc4400);
         }
         #result, #computer-choice, #scoreboard {
@@ -74,6 +74,8 @@
         <p id="computer-choice"></p>
         <p id="result"></p>
         <p id="scoreboard">Player: 0 | Computer: 0</p>
+        <button class="reset-button" onclick="resetGame()">Reset Game</button>
+        <button class="menu-button" onclick="goToMenu()">Menu</button>
     </div>
     
     <script>
@@ -98,42 +100,3 @@
             } else {
                 computerChoice = Math.random() < 0.8 ? counterMove(userChoice) : choices[Math.floor(Math.random() * 3)];
             }
-            
-            let result = '';
-            
-            if (userChoice === computerChoice) {
-                result = "It's a tie!";
-            } else if (
-                (userChoice === 'rock' && computerChoice === 'scissors') ||
-                (userChoice === 'paper' && computerChoice === 'rock') ||
-                (userChoice === 'scissors' && computerChoice === 'paper')
-            ) {
-                result = "You win! 🎉";
-                playerScore++;
-            } else {
-                result = "You lose! 😢";
-                computerScore++;
-            }
-            
-            document.getElementById('computer-choice').textContent = `Computer chose: ${computerChoice}`;
-            document.getElementById('result').textContent = result;
-            document.getElementById('scoreboard').textContent = `Player: ${playerScore} | Computer: ${computerScore}`;
-            
-            if (playerScore === 5 || computerScore === 5) {
-                setTimeout(() => {
-                    alert(playerScore === 5 ? 'Congratulations! You won the game! 🎉' : 'Game Over! Computer wins! 😢');
-                    playerScore = 0;
-                    computerScore = 0;
-                    document.getElementById('scoreboard').textContent = `Player: 0 | Computer: 0`;
-                }, 100);
-            }
-        }
-        
-        function counterMove(userChoice) {
-            if (userChoice === 'rock') return 'paper';
-            if (userChoice === 'paper') return 'scissors';
-            return 'rock';
-        }
-    </script>
-</body>
-</html>
