@@ -57,13 +57,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="intro">
+    <div class="intro" id="intro">
         <p>Welcome to Rock Paper Scissors! 🕹️</p>
         <p>Choose a difficulty level and try to beat the computer in a game up to 5 points!</p>
+        <button class="mode-button" onclick="setMode('beginner')">Beginner</button>
+        <button class="mode-button" onclick="setMode('intermediate')">Intermediate</button>
+        <button class="mode-button" onclick="setMode('expert')">Expert</button>
     </div>
-    <button class="mode-button" onclick="setMode('beginner')">Beginner</button>
-    <button class="mode-button" onclick="setMode('intermediate')">Intermediate</button>
-    <button class="mode-button" onclick="setMode('expert')">Expert</button>
     <div class="game-container" id="game-container">
         <h1>Rock Paper Scissors</h1>
         <div class="choices">
@@ -81,11 +81,11 @@
     <script>
         let playerScore = 0;
         let computerScore = 0;
-        let difficulty = 'beginner';
+        let difficulty = '';
         
         function setMode(mode) {
             difficulty = mode;
-            document.querySelectorAll('.mode-button').forEach(button => button.style.display = 'none');
+            document.getElementById('intro').style.display = 'none';
             document.getElementById('game-container').style.display = 'block';
         }
         
@@ -100,3 +100,53 @@
             } else {
                 computerChoice = Math.random() < 0.8 ? counterMove(userChoice) : choices[Math.floor(Math.random() * 3)];
             }
+            
+            let result = '';
+            
+            if (userChoice === computerChoice) {
+                result = "It's a tie!";
+            } else if (
+                (userChoice === 'rock' && computerChoice === 'scissors') ||
+                (userChoice === 'paper' && computerChoice === 'rock') ||
+                (userChoice === 'scissors' && computerChoice === 'paper')
+            ) {
+                result = "You win! 🎉";
+                playerScore++;
+            } else {
+                result = "You lose! 😢";
+                computerScore++;
+            }
+            
+            document.getElementById('computer-choice').textContent = `Computer chose: ${computerChoice}`;
+            document.getElementById('result').textContent = result;
+            document.getElementById('scoreboard').textContent = `Player: ${playerScore} | Computer: ${computerScore}`;
+            
+            if (playerScore === 5 || computerScore === 5) {
+                setTimeout(() => {
+                    alert(playerScore === 5 ? 'Congratulations! You won the game! 🎉' : 'Game Over! Computer wins! 😢');
+                    resetGame();
+                }, 100);
+            }
+        }
+        
+        function counterMove(userChoice) {
+            if (userChoice === 'rock') return 'paper';
+            if (userChoice === 'paper') return 'scissors';
+            return 'rock';
+        }
+
+        function resetGame() {
+            playerScore = 0;
+            computerScore = 0;
+            document.getElementById('scoreboard').textContent = `Player: 0 | Computer: 0`;
+            document.getElementById('computer-choice').textContent = '';
+            document.getElementById('result').textContent = '';
+        }
+        
+        function goToMenu() {
+            document.getElementById('game-container').style.display = 'none';
+            document.getElementById('intro').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
