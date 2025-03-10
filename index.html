@@ -45,10 +45,22 @@
         #scoreboard {
             font-size: 20px;
         }
+        .intro {
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: inline-block;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="intro">
+        <p>Welcome to Rock Paper Scissors! 🕹️</p>
+        <p>Click 'Play' to start and try to beat the computer in a game up to 5 points!</p>
+    </div>
     <button class="play-button" onclick="startGame()">Click to Play</button>
     <div class="game-container" id="game-container">
         <h1>Rock Paper Scissors</h1>
@@ -100,4 +112,9 @@
                     playerScore = 0;
                     computerScore = 0;
                     document.getElementById('scoreboard').textContent = `Player: 0 | Computer: 0`;
-                },
+                }, 100);
+            }
+        }
+    </script>
+</body>
+</html>
